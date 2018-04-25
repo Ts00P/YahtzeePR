@@ -57,30 +57,30 @@
                     </br>
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="../Images/1.png" alt="foto 1" style=" width:100px; height:100px">
+                            <img id="img1" src="../Images/1.png" alt="foto 1" >
                         </div>
                         <div class="col-md-6">
-                            <img src="../Images/2.png" alt="foto 2" style=" width:100px; height:100px">
+                            <img id="img2" src="../Images/2.png" alt="foto 2" >
                         </div>
                     </div>
                     <div class="row" style="margin-top:10px">
                         <div class="col-md-6">
-                            <img src="../Images/3.png" alt="foto 3" style=" width:100px; height:100px">
+                            <img id="img3" src="../Images/3.png" alt="foto 3" >
                         </div>
                         <div class="col-md-6">
-                            <img src="../Images/4.png" alt="foto 4" style=" width:100px; height:100px">
+                            <img id="img4" src="../Images/4.png" alt="foto 4" >
                         </div>
                     </div>
                     <div class="row" style="margin-top:10px">
                         <div class="col-md-6">
-                            <img src="../Images/5.png" alt="foto 5" style=" width:100px; height:100px">
+                            <img id="img5" src="../Images/5.png" alt="foto 5" >
                         </div>
                         <div class="col-md-6">
-                            <img src="../Images/2.png" alt="foto 2" style=" width:100px; height:100px">
+                            <img id="img6" src="../Images/2.png" alt="foto 6" >
                         </div>
                     </div>
-                    <div class="row" style="margin-top:10px">
-                        <button type="button" class="btn btn-primary">Start</button>
+                    <div class="row">
+                        <input type="button" id="btn_Start" onclick="start()" class="btn btn-secondary btn-lg" value='Start'/>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -88,7 +88,7 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th id="uitvoerNaam1">Speler1</th>
+                                <th id="uitvoerNaam1">Speler1</th> 
                                 <th id="uitvoerNaam2">Speler2</th>
                             </tr>
                         </thead>
@@ -153,11 +153,32 @@
                                 <td id="sp1"></td>
                                 <td id="sp2"></td>
                             </tr>
+                            <tr id="ls">
+                                <td>Large straight</td>
+                                <td id="sp1"></td>
+                                <td id="sp2"></td>
+                            </tr>
+                            <tr id="chance">
+                                <td>Chance</td>
+                                <td id="sp1"></td>
+                                <td id="sp2"></td>
+                            </tr>
+                            <tr id="yahtzee">
+                                <td>Yahtzee</td>
+                                <td id="sp1"></td>
+                                <td id="sp2"></td>
+                            </tr>
+                            <tr id="total">
+                                <td>Total</td>
+                                <td id="sp1"></td>
+                                <td id="sp2"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+    <script src="..\JavaScript.js"></script>
 </body>
 </html>
