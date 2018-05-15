@@ -5,5 +5,8 @@
     $("#uitvoerNaam1").text(input1);
     $("#uitvoerNaam2").text(input2);
 
-    $("#btn_Start").attr('value', 'Gooi')
+    
+    $("#btn_Start").attr('value', (input1 + ' moet gooien'))
+
+    $("#btn_Start").attr('value', (input2 + ' moet gooien'))
 }
