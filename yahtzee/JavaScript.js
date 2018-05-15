@@ -13,11 +13,8 @@
 }
 
 function dobbel() {
-    
-    for (int i = 0; i < 6; i++) {
+    for (var i = 1; i < 7; i++) {
         var random = Math.floor((Math.random() * 5) + 1);
-        $("#img" + i).attr('src', '../Images/' + random + '.png').load(function () {
-            this.width;
-        });
+        $("#img" + i).attr('src', '../Images/' + random + '.png');
     }
 }
