@@ -13,6 +13,7 @@
 }
 
 function dobbel() {
+
     for (var i = 1; i < 7; i++) {
         var random = Math.floor((Math.random() * 5) + 1);
         $("#img" + i).attr('src', '../Images/' + random + '.png');
