@@ -15,10 +15,6 @@
     border: 1px solid #000 !important;
 }
 #btn_Start {
-    margin-top: 50px;
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
     background-color: #003366 !important;
 }
 
@@ -30,4 +26,10 @@
 
 input {
     text-align: center !important;
+}
+
+#startGooi {
+    margin-top: 50px;
+    margin-left: 30%;
+    margin-right: 30%;
 }

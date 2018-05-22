@@ -77,8 +77,15 @@
                             <img id="img5" src="../Images/5.png" alt="foto 5" >
                         </div>
                     </div>
-                    <div class="row">
-                        <input type="button" id="btn_Start" onclick="startSpel()" class="btn btn-secondary btn-lg" value='Start'/>
+                    <div class="row" id="startGooi">
+                        <div class="col-md-6">
+                            <div id="beurten">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="button" id="btn_Start" onclick="startSpel()" class="btn btn-secondary btn-lg" value='Start' />
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -91,82 +98,82 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr id="ones">
+                            <tr>
                                 <td>Ones</td>
-                                <td id="sp1"><input type="text" class="form-control" value="1" readonly="readonly"></td>
-                                <td id="sp2"><input type="text" class="form-control" value="1" readonly="readonly"></td>
+                                <td id="one-sp1"><input type="text" class="form-control" value="1" readonly="readonly"></td>
+                                <td id="one-sp2"><input type="text" class="form-control" value="1" readonly="readonly"></td>
                             </tr>
-                            <tr id="twos">
+                            <tr>
                                 <td>Twos</td>
-                                <td id="sp1"><input type="text" class="form-control" value="2" readonly="readonly"></td>
-                                <td id="sp2"><input type="text" class="form-control" value="2" readonly="readonly"></td>
+                                <td id="two-sp1"><input type="text" class="form-control" value="2" readonly="readonly"></td>
+                                <td id="two-sp2"><input type="text" class="form-control" value="2" readonly="readonly"></td>
                             </tr>
-                            <tr id="threes">
+                            <tr>
                                 <td>Threes</td>
-                                <td id="sp1"><input type="text" class="form-control" value="3" readonly="readonly"></td>
-                                <td id="sp2"><input type="text" class="form-control" value="3" readonly="readonly"></td>
+                                <td id="three-sp1"><input type="text" class="form-control" value="3" readonly="readonly"></td>
+                                <td id="three-sp2"><input type="text" class="form-control" value="3" readonly="readonly"></td>
                             </tr>
-                            <tr id="fours">
+                            <tr>
                                 <td>Fours</td>
-                                <td id="sp1"><input type="text" class="form-control" value="4" readonly="readonly"></td>
-                                <td id="sp2"><input type="text" class="form-control" value="4" readonly="readonly"></td>
+                                <td id="four-sp1"><input type="text" class="form-control" value="4" readonly="readonly"></td>
+                                <td id="four-sp2"><input type="text" class="form-control" value="4" readonly="readonly"></td>
                             </tr>
-                            <tr id="fives">
+                            <tr>
                                 <td>Fives</td>
-                                <td id="sp1"><input type="text" class="form-control" value="5" readonly="readonly"></td>
-                                <td id="sp2"><input type="text" class="form-control" value="5" readonly="readonly"></td>
+                                <td id="five-sp1"><input type="text" class="form-control" value="5" readonly="readonly"></td>
+                                <td id="five-sp2"><input type="text" class="form-control" value="5" readonly="readonly"></td>
                             </tr>
-                            <tr id="sixes">
+                            <tr>
                                 <td>Sixes</td>
-                                <td id="sp1"><input type="text" class="form-control" value="6" readonly="readonly"></td>
-                                <td id="sp2"><input type="text" class="form-control" value="6" readonly="readonly"></td>
+                                <td id="six-sp1"><input type="text" class="form-control" value="6" readonly="readonly"></td>
+                                <td id="six-sp2"><input type="text" class="form-control" value="6" readonly="readonly"></td>
                             </tr>
-                            <tr id="sum">
+                            <tr>
                                 <td>Sum</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="bonus">
+                            <tr>
                                 <td>Bonus</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="tk">
+                            <tr>
                                 <td>Three of a kind</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="fk">
+                            <tr>
                                 <td>Four of a kind</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="fh">
+                            <tr>
                                 <td>Full house</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="ss">
+                            <tr>
                                 <td>Small straight</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="ls">
+                            <tr>
                                 <td>Large straight</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="chance">
+                            <tr>
                                 <td>Chance</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="yahtzee">
+                            <tr>
                                 <td>Yahtzee</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
                             </tr>
-                            <tr id="total">
+                            <tr >
                                 <td>Total</td>
                                 <td id="sp1"><input type="text" class="form-control" value="" readonly="readonly"></td>
                                 <td id="sp2"><input type="text" class="form-control" value="" readonly="readonly"></td>
