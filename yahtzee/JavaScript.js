@@ -5,8 +5,6 @@ var gegooid = [];
 var worpen = 0;
 var beurt = 1;
 
-var scoreSpeler1 = { ones: 0, twos: 0 };
-
 $(function () {
     $("img").click(function () {
 
@@ -25,7 +23,14 @@ $(function () {
 });
 
 $(function () {
-    $("td").click(function () {
+    $("input").click(function () {
+        if (start) {
+            if (zoekID(this.id) == true) {
+                $(this).attr('disabled', 'disabled');
+                $(this).css({ "color": "white" });
+                veranderBeurt();
+            }
+        }
     });
 });
 
@@ -65,8 +70,6 @@ function dobbel() {
         if (beurtAfgerond == false) {
             $("#btn_Start").attr('disabled', 'disabled');
         }
-        veranderBeurt();
-        worpen = 0;
     }
 
 }
@@ -77,7 +80,10 @@ function updateWorpen() {
 }
 
 function veranderBeurt() {
+    resetWaardes();
     beurt++;
+    $("#btn_Start").removeAttr('disabled');
+    worpen = 0;
 
     if (beurt > 2) {
         beurt = 1;
@@ -122,11 +128,36 @@ function berekenSimpeleWaardes() {
 }
 
 function zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes) {
-    $("#one-sp" + beurt).text(ones);
-    $("#two-sp" + beurt).text(twos);
-    $("#three-sp" + beurt).text(threes);
-    $("#four-sp" + beurt).text(fours);
-    $("#five-sp" + beurt).text(fives);
-    $("#six-sp" + beurt).text(sixes);
+    $("#one-sp" + beurt).val(ones);
+    $("#two-sp" + beurt).val(twos);
+    $("#three-sp" + beurt).val(threes);
+    $("#four-sp" + beurt).val(fours);
+    $("#five-sp" + beurt).val(fives);
+    $("#six-sp" + beurt).val(sixes);
 }
 
+function resetWaardes() {
+
+    $("#one-sp" + beurt).val("");
+    $("#two-sp" + beurt).val("");
+    $("#three-sp" + beurt).val("");
+    $("#four-sp" + beurt).val("");
+    $("#five-sp" + beurt).val("");
+    $("#six-sp" + beurt).val("");
+}
+
+function zoekID(theid) {
+    switch (theid) {
+        case "one-sp" + beurt:
+            return true;
+            break;
+        case "two-sp" + beurt:
+            return true;
+            break;
+        case "three-sp" + beurt:
+            return true;
+            break
+        default:
+            return false;
+    }
+}
