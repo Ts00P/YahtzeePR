@@ -33,7 +33,19 @@ $(function () {
                         // Heeft de speler op zijn eigen score colom geklikt?
                         if (this.id.toString().split("-").pop() == "sp" + beurt) {
                             $(this).attr('disabled', 'disabled');
-                            $(this).css({ "color": "red" });
+                            $(this).css({ "color": "#ffffff" });
+                            $(this).css({ "background-color": "#003366" });
+                            if (beurt == 1) {
+                                $("#beurten").text($("#usr" + 2).val() + " heeft 3 gooibeurten!");
+                            }
+                            else {
+                                $("#beurten").text($("#usr" + 1).val() + " heeft 3 gooibeurten!");
+                            }
+                            for (var i = 1; i < 7; i++) {
+                                var img = $("#img" + i)
+                                $(img).css('border', "none");
+                                geselecteerd.splice($.inArray(img, geselecteerd), 1);
+                            }
                             veranderBeurt();
                         }
                     }
@@ -85,7 +97,12 @@ function dobbel() {
 
 function updateWorpen() {
     worpen++;
-    $("#beurten").text($("#usr" + beurt).val() + " heeft " + (3 - worpen) + " over");
+    if (worpen == 3) {
+        $("#beurten").text($("#usr" + beurt).val() + " maak een keuze in de tabel!");
+    }
+    else {
+        $("#beurten").text($("#usr" + beurt).val() + " heeft nog " + (3 - worpen) + " gooibeurten over!");
+    }
 }
 
 function veranderBeurt() {
@@ -144,28 +161,43 @@ function zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes) {
             if (!$(this).prop('disabled')) {
                 switch (this.id.toString()) {
                     case "one-sp" + beurt:
-                        $(this).val(ones);
+                        $(this).val(ones * 1);
                         break;
                     case "two-sp" + beurt:
-                        $(this).val(twos);
+                        $(this).val(twos * 2);
                         break;
                     case "three-sp" + beurt:
-                        $(this).val(threes);
+                        $(this).val(threes * 3);
                         break;
                     case "four-sp" + beurt:
-                        $(this).val(fours);
+                        $(this).val(fours * 4);
                         break;
                     case "five-sp" + beurt:
-                        $(this).val(fives);
+                        $(this).val(fives * 5);
                         break;
                     case "six-sp" + beurt:
-                        $(this).val(sixes);
+                        $(this).val(sixes * 6);
                         break;
                     case "tok-sp" + beurt:
                         $(this).val(ThreeOfAKind(ones, twos, threes, fours, fives, sixes));
                         break;
                     case "fok-sp" + beurt:
                         $(this).val(FourOfAKind(ones, twos, threes, fours, fives, sixes));
+                        break;
+                    case "fh-sp" + beurt:
+                        $(this).val(FullHouse(ones, twos, threes, fours, fives, sixes));
+                        break;
+                    case "ss-sp" + beurt:
+                        $(this).val(SmallStraight(ones, twos, threes, fours, fives, sixes));
+                        break;
+                    case "ls-sp" + beurt:
+                        $(this).val(LargeStraight(ones, twos, threes, fours, fives, sixes));
+                        break;
+                    case "chance-sp" + beurt:
+                        $(this).val(Chance(ones, twos, threes, fours, fives, sixes));
+                        break;
+                    case "yahtzee-sp" + beurt:
+                        $(this).val(Yahtzee(ones, twos, threes, fours, fives, sixes));
                         break;
                 }
             }
@@ -183,6 +215,7 @@ function resetWaardes() {
     });
 }
 
+//Three of a kind
 function ThreeOfAKind(ones, twos, threes, fours, fives, sixes) {
     var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
     var ThreeOfKindpunten = 0;
@@ -205,6 +238,7 @@ function ThreeOfAKind(ones, twos, threes, fours, fives, sixes) {
     return ScoreThreeOfKind;
 }
 
+//Four of a kind
 function FourOfAKind(ones, twos, threes, fours, fives, sixes) {
 
     var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
@@ -225,4 +259,104 @@ function FourOfAKind(ones, twos, threes, fours, fives, sixes) {
         ScoreFourOfKind = FourOfKindpunten;
     }
     return ScoreFourOfKind;
+}
+
+//Small straight
+function SmallStraight(ones, twos, threes, fours, fives, sixes) {
+
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var SmallStraightTeller = 0;
+    var ScoreSmallStraight = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        if (aantalgegooide_dobbelstenen[i] > 0) {
+            SmallStraightTeller++;
+            if (SmallStraightTeller == 4) {
+                break;
+            }
+        }
+        else {
+            SmallStraightTeller = 0;
+        }
+    }
+    if (SmallStraightTeller == 4) {
+        ScoreSmallStraight = 30;
+    }
+    return ScoreSmallStraight;
+}
+
+//LargeStraight
+function LargeStraight(ones, twos, threes, fours, fives, sixes) {
+
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var LargeStraightTeller = 0;
+    var ScoreLargeStraight = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        if (aantalgegooide_dobbelstenen[i] > 0) {
+            LargeStraightTeller++;
+            if (LargeStraightTeller == 5) {
+                break;
+            }
+        }
+        else {
+            LargeStraightTeller = 0;
+        }
+    }
+    if (LargeStraightTeller == 5) {
+        ScoreLargeStraight = 40;
+    }
+    return ScoreLargeStraight;
+}
+
+//Full house
+function FullHouse(ones, twos, threes, fours, fives, sixes) {
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var FullHouse1 = 0;
+    var FullHouse2 = 0;
+    var ScoreFullHouse = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        if (aantalgegooide_dobbelstenen[i] == 3 ) {
+            FullHouse1 = 1;
+        }
+        if (aantalgegooide_dobbelstenen[i] == 2) {
+            FullHouse2 = 1;
+        }
+    }
+
+    if (FullHouse1 == 1 && FullHouse2 == 1) {
+        ScoreFullHouse = 25;
+    }
+    return ScoreFullHouse;
+}
+
+//Yahtzee
+function Yahtzee(ones, twos, threes, fours, fives, sixes) {
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var Yahtzee = 0;
+    var ScoreYahtzee = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        if (aantalgegooide_dobbelstenen[i] == 5) {
+            Yahtzee = 1;
+        }
+    }
+
+    if (Yahtzee == 1) {
+        ScoreYahtzee = 50;
+    }
+    return ScoreYahtzee;
+}
+
+//Chance
+function Chance(ones, twos, threes, fours, fives, sixes) {
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var ScoreChance = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        ScoreChance += aantalgegooide_dobbelstenen[i]  * (i + 1);
+    }
+
+    return ScoreChance;
 }

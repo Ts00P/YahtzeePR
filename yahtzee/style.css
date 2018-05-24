@@ -14,8 +14,18 @@
 .table-bordered td, .table-bordered th {
     border: 1px solid #000 !important;
 }
+#beurten {
+    margin-top: 50px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
 #btn_Start {
     background-color: #003366 !important;
+    margin-top: 10px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 #img1, #img2, #img3, #img4, #img5, #img6 {
@@ -26,10 +36,5 @@
 
 input {
     text-align: center !important;
-}
-
-#startGooi {
-    margin-top: 50px;
-    margin-left: 30%;
-    margin-right: 30%;
+    font-size: 18px !important;
 }
