@@ -8,14 +8,16 @@ var beurt = 1;
 $(function () {
     $("img").click(function () {
 
-        if (start) {
-            if ($.inArray(this.id, geselecteerd) != -1) {
-                $(this).css('border', "none");
-                geselecteerd.splice($.inArray(this.id, geselecteerd), 1);
-            } else {
-                geselecteerd.push(this.id);
-                $(this).css('border', "solid 2px blue");
-            }
+        if (start != true) {
+            return;
+        }
+
+        if ($.inArray(this.id, geselecteerd) != -1) {
+            $(this).css('border', "none");
+            geselecteerd.splice($.inArray(this.id, geselecteerd), 1);
+        } else {
+            geselecteerd.push(this.id);
+            $(this).css('border', "solid 2px blue");
         }
     });
 });
@@ -23,22 +25,11 @@ $(function () {
 $(function () {
     $("input").click(function () {
         if (start) {
-
-            var clickID = this.id;
-            $('#scoreTable tbody tr').each(function () {
-                $(this).find('td input').each(function () {
-                    // Heeft de speler op een input geklikt in de score tabel?
-
-                    if (this.id.toString() == clickID.toString()) {
-                        // Heeft de speler op zijn eigen score colom geklikt?
-                        if (this.id.toString().split("-").pop() == "sp" + beurt) {
-                            $(this).attr('disabled', 'disabled');
-                            $(this).css({ "color": "red" });
-                            veranderBeurt();
-                        }
-                    }
-                });
-            });
+            if (zoekID(this.id) == true) {
+                $(this).attr('disabled', 'disabled');
+                $(this).css({ "color": "white" });
+                veranderBeurt();
+            }
         }
     });
 });
@@ -108,6 +99,7 @@ function berekenSimpeleWaardes() {
     var fours = 0;
     var fives = 0;
     var sixes = 0;
+    var threeOfAKind = 0;
 
     for (var i = 0; i < gegooid.length; i++) {
         var gooiWaarde = gegooid[i];
@@ -117,61 +109,104 @@ function berekenSimpeleWaardes() {
                 ones++;
                 break;
             case 2:
-                twos += 2;
+                twos++;
                 break;
             case 3:
-                threes += 3;
+                threes++;
                 break;
             case 4:
-                fours += 4;
+                fours++;
                 break;
             case 5:
-                fives += 5;
+                fives++;
                 break;
             case 6:
-                sixes += 6;
+                sixes++;
                 break;
         }
     }
-    zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes);
+    var ScoreThreeOfKind = ThreeOfAKind(ones, twos, threes, fours, fives, sixes);
+    var ScoreFourOfKind = FourOfAKind(ones, twos, threes, fours, fives, sixes);
+
+    zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes, ScoreThreeOfKind );
 }
 
-function zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes) {
-    $('#scoreTable tbody tr').each(function () {
-        $(this).find('td input').each(function () {
-
-            if (!$(this).prop('disabled')) {
-                switch (this.id.toString()) {
-                    case "one-sp" + beurt:
-                        $(this).val(ones);
-                        break;
-                    case "two-sp" + beurt:
-                        $(this).val(twos);
-                        break;
-                    case "three-sp" + beurt:
-                        $(this).val(threes);
-                        break;
-                    case "four-sp" + beurt:
-                        $(this).val(fours);
-                        break;
-                    case "five-sp" + beurt:
-                        $(this).val(fives);
-                        break;
-                    case "six-sp" + beurt:
-                        $(this).val(sixes);
-                        break;
-                }
-            }
-        });
-    });
+function zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes, ScoreThreeOfKind) {
+    $("#one-sp" + beurt).val(ones);
+    $("#two-sp" + beurt).val(twos);
+    $("#three-sp" + beurt).val(threes);
+    $("#four-sp" + beurt).val(fours);
+    $("#five-sp" + beurt).val(fives);
+    $("#six-sp" + beurt).val(sixes);
 }
 
 function resetWaardes() {
-    $('#scoreTable tbody tr').each(function () {
-        $(this).find('td input').each(function () {
-            if (!$(this).prop('disabled')) {
-                $(this).val("");
-            }
-        });
-    });
+
+    $("#one-sp" + beurt).val("");
+    $("#two-sp" + beurt).val("");
+    $("#three-sp" + beurt).val("");
+    $("#four-sp" + beurt).val("");
+    $("#five-sp" + beurt).val("");
+    $("#six-sp" + beurt).val("");
+    $("threeOfKind-sp" + beurt).val("");
+}
+
+function zoekID(theid) {
+    switch (theid) {
+        case "one-sp" + beurt:
+            return true;
+            break;
+        case "two-sp" + beurt:
+            return true;
+            break;
+        case "three-sp" + beurt:
+            return true;
+            break
+        default:
+            return false;
+    }
+}
+
+function ThreeOfAKind() {
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var ThreeOfKindpunten = 0;
+    var ThreeOfKind = 0;
+    var ScoreThreeOfKind = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        if (aantalgegooide_dobbelstenen[i] == 3) {
+            ThreeOfKindpunten += aantalgegooide_dobbelstenen[i] * (i + 1);
+            ThreeOfKind = 1;
+        }
+        else {
+            ThreeOfKindpunten += aantalgegooide_dobbelstenen[i] * (i + 1);
+        }
+    }
+
+    if (ThreeOfKind == 1) {
+        ScoreThreeOfKind = ThreeOfKindpunten;
+    }
+    return ScoreThreeOfKind;
+}
+
+function FourOfAKind() {
+
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var FourOfKindpunten = 0;
+    var FourOfKind = 0;
+    var ScoreFourOfKind = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        if (aantalgegooide_dobbelstenen[i] == 3) {
+            FourOfKindpunten += aantalgegooide_dobbelstenen[i] * (i + 1);
+            FourOfKind = 1;
+        }
+        else {
+            FourOfKindpunten += aantalgegooide_dobbelstenen[i] * (i + 1);
+        }
+    }
+    if (FourOfKind == 1) {
+        ScoreFourOfKind = FourOfKindpunten;
+    }
+    return ScoreFourOfKind;
 }
