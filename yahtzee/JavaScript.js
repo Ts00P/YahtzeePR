@@ -99,6 +99,7 @@ function berekenSimpeleWaardes() {
     var fours = 0;
     var fives = 0;
     var sixes = 0;
+    var threeOfAKind = 0;
 
     for (var i = 0; i < gegooid.length; i++) {
         var gooiWaarde = gegooid[i];
@@ -108,26 +109,29 @@ function berekenSimpeleWaardes() {
                 ones++;
                 break;
             case 2:
-                twos += 2;
+                twos++;
                 break;
             case 3:
-                threes += 3;
+                threes++;
                 break;
             case 4:
-                fours += 4;
+                fours++;
                 break;
             case 5:
-                fives += 5;
+                fives++;
                 break;
             case 6:
-                sixes += 6;
+                sixes++;
                 break;
         }
     }
-    zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes);
+    var ScoreThreeOfKind = ThreeOfAKind(ones, twos, threes, fours, fives, sixes);
+    var ScoreFourOfKind = FourOfAKind(ones, twos, threes, fours, fives, sixes);
+
+    zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes, ScoreThreeOfKind );
 }
 
-function zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes) {
+function zetSimpeleWaardes(ones, twos, threes, fours, fives, sixes, ScoreThreeOfKind) {
     $("#one-sp" + beurt).val(ones);
     $("#two-sp" + beurt).val(twos);
     $("#three-sp" + beurt).val(threes);
@@ -144,6 +148,7 @@ function resetWaardes() {
     $("#four-sp" + beurt).val("");
     $("#five-sp" + beurt).val("");
     $("#six-sp" + beurt).val("");
+    $("threeOfKind-sp" + beurt).val("");
 }
 
 function zoekID(theid) {
@@ -160,4 +165,48 @@ function zoekID(theid) {
         default:
             return false;
     }
+}
+
+function ThreeOfAKind() {
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var ThreeOfKindpunten = 0;
+    var ThreeOfKind = 0;
+    var ScoreThreeOfKind = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        if (aantalgegooide_dobbelstenen[i] == 3) {
+            ThreeOfKindpunten += aantalgegooide_dobbelstenen[i] * (i + 1);
+            ThreeOfKind = 1;
+        }
+        else {
+            ThreeOfKindpunten += aantalgegooide_dobbelstenen[i] * (i + 1);
+        }
+    }
+
+    if (ThreeOfKind == 1) {
+        ScoreThreeOfKind = ThreeOfKindpunten;
+    }
+    return ScoreThreeOfKind;
+}
+
+function FourOfAKind() {
+
+    var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
+    var FourOfKindpunten = 0;
+    var FourOfKind = 0;
+    var ScoreFourOfKind = 0;
+
+    for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
+        if (aantalgegooide_dobbelstenen[i] == 3) {
+            FourOfKindpunten += aantalgegooide_dobbelstenen[i] * (i + 1);
+            FourOfKind = 1;
+        }
+        else {
+            FourOfKindpunten += aantalgegooide_dobbelstenen[i] * (i + 1);
+        }
+    }
+    if (FourOfKind == 1) {
+        ScoreFourOfKind = FourOfKindpunten;
+    }
+    return ScoreFourOfKind;
 }
