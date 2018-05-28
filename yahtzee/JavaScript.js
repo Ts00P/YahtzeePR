@@ -251,7 +251,6 @@ function calculateSum() {
             $('#total-sp' + beurt).attr('disabled', 'disabled');
             $('#total-sp' + beurt).css({ "color": "#ffffff" });
             $('#total-sp' + beurt).css({ "background-color": "#003366" });
-            alert("score" + sum);
         }
 
         var winner = 0;
