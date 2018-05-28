@@ -8,7 +8,7 @@ var beurt = 1;
 $(function () {
     $("img").click(function () {
 
-        if (start) {
+        if (start && worpen != 0) {
             if ($.inArray(this.id, geselecteerd) != -1) {
                 $(this).css('border', "none");
                 geselecteerd.splice($.inArray(this.id, geselecteerd), 1);
@@ -32,21 +32,26 @@ $(function () {
                     if (this.id.toString() == clickID.toString()) {
                         // Heeft de speler op zijn eigen score colom geklikt?
                         if (this.id.toString().split("-").pop() == "sp" + beurt) {
-                            $(this).attr('disabled', 'disabled');
-                            $(this).css({ "color": "#ffffff" });
-                            $(this).css({ "background-color": "#003366" });
-                            if (beurt == 1) {
-                                $("#beurten").text($("#usr" + 2).val() + " heeft 3 gooibeurten!");
+
+                            if (worpen > 0) {
+
+                                $(this).attr('disabled', 'disabled');
+                                $(this).css({ "color": "#ffffff" });
+                                $(this).css({ "background-color": "#003366" });
+                                if (beurt == 1) {
+                                    $("#beurten").text($("#usr" + 2).val() + " heeft 3 gooibeurten!");
+                                }
+                                else {
+                                    $("#beurten").text($("#usr" + 1).val() + " heeft 3 gooibeurten!");
+                                }
+                                for (var i = 1; i < 7; i++) {
+                                    var img = $("#img" + i)
+                                    $(img).css('border', "none");
+                                    geselecteerd.splice($.inArray(img, geselecteerd), 1);
+                                }
+                                calculateSum();
+                                veranderBeurt();
                             }
-                            else {
-                                $("#beurten").text($("#usr" + 1).val() + " heeft 3 gooibeurten!");
-                            }
-                            for (var i = 1; i < 7; i++) {
-                                var img = $("#img" + i)
-                                $(img).css('border', "none");
-                                geselecteerd.splice($.inArray(img, geselecteerd), 1);
-                            }
-                            veranderBeurt();
                         }
                     }
                 });
@@ -215,6 +220,64 @@ function resetWaardes() {
     });
 }
 
+function calculateSum() {
+    var scoresSet = true;
+    $('#scoreTable tbody tr').each(function () {
+        $(this).find('td input').each(function () {
+            if (this.id.toString().split("-").pop() == "sp" + beurt) {
+                if (!$(this).prop('disabled') && this.id.toString() != "total-sp" + beurt) {
+                    scoresSet = false;
+                }
+            }
+        });
+    });
+
+    if (scoresSet == true) {
+        alert("all scores are set");
+        if (!$('#total-sp' + beurt).prop('disabled')) {
+            var sum = 0;
+            $('#scoreTable tbody tr').each(function () {
+                $(this).find('td input').each(function () {
+                    if (this.id.toString().split("-").pop() == "sp" + beurt) {
+                        if ($(this).prop('disabled')) {
+                            var value = $(this).val();
+                            sum += +value;
+                        }
+                    }
+                });
+            });
+
+            $('#total-sp' + beurt).val(sum);
+            $('#total-sp' + beurt).attr('disabled', 'disabled');
+            $('#total-sp' + beurt).css({ "color": "#ffffff" });
+            $('#total-sp' + beurt).css({ "background-color": "#003366" });
+            alert("score" + sum);
+        }
+
+        var winner = 0;
+
+        if ($('#total-sp1').prop('disabled') && $('#total-sp2').prop('disabled')) {
+            if ($('#total-sp1').val() > $('#total-sp2').val()) {
+                winner = 1;
+            } else {
+                winner = 2;
+            }
+        }
+
+        if (winner != 0) {
+            $('#scoreTable tbody tr').each(function () {
+                $(this).find('td input').each(function () {
+                    if (this.id.toString().split("-").pop() == "sp" + winner) {
+                        $(this).css({ "background-color": "#00ff00" });
+                    } else {
+                        $(this).css({ "background-color": "#ff3300" });
+                    }
+                });
+            });
+        }
+    }
+}
+
 //Three of a kind
 function ThreeOfAKind(ones, twos, threes, fours, fives, sixes) {
     var aantalgegooide_dobbelstenen = [ones, twos, threes, fours, fives, sixes];
@@ -317,7 +380,7 @@ function FullHouse(ones, twos, threes, fours, fives, sixes) {
     var ScoreFullHouse = 0;
 
     for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
-        if (aantalgegooide_dobbelstenen[i] == 3 ) {
+        if (aantalgegooide_dobbelstenen[i] == 3) {
             FullHouse1 = 1;
         }
         if (aantalgegooide_dobbelstenen[i] == 2) {
@@ -355,7 +418,7 @@ function Chance(ones, twos, threes, fours, fives, sixes) {
     var ScoreChance = 0;
 
     for (var i = 0; i < aantalgegooide_dobbelstenen.length; i++) {
-        ScoreChance += aantalgegooide_dobbelstenen[i]  * (i + 1);
+        ScoreChance += aantalgegooide_dobbelstenen[i] * (i + 1);
     }
 
     return ScoreChance;
