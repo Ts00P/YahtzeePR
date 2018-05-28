@@ -233,7 +233,6 @@ function calculateSum() {
     });
 
     if (scoresSet == true) {
-        alert("all scores are set");
         if (!$('#total-sp' + beurt).prop('disabled')) {
             var sum = 0;
             $('#scoreTable tbody tr').each(function () {
@@ -267,9 +266,9 @@ function calculateSum() {
             $('#scoreTable tbody tr').each(function () {
                 $(this).find('td input').each(function () {
                     if (this.id.toString().split("-").pop() == "sp" + winner) {
-                        $(this).css({ "background-color": "#00ff00" });
+                        $(this).css({ "background-color": "#22C65B" });
                     } else {
-                        $(this).css({ "background-color": "#ff3300" });
+                        $(this).css({ "background-color": "#CE4526" });
                     }
                 });
             });
